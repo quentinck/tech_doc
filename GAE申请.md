@@ -142,3 +142,95 @@ PubkeyAuthentication yes
 ```
 
 当然也可以设置root密码，开启密码ssh登录,配置完成以后就可以搭建飞机场了。
+
+
+
+## 补充说明
+
+下述内容均为针对改文章的补充说明，个人信息详见附录
+
+### 创建VM实例（vps）
+
+1)  可先创建“实例模板”，后续如有错误，可删除服务器后，修改模板再次创建，默认使用Debian9系统；
+
+2)  使用“实例模板”，需要单独设置：名称、服务器所在区域和外部IP，公钥；
+
+3)  补充说明：创建VM实例后，进行网络设置，此部分说明不够详细；
+
+4)  补充说明：这里使用Debian9版本作为服务器版本，网络使用台湾地区费用最低，使用最低配置；
+
+个人ssh秘钥，详见附件
+
+### SSH第三方客户端登陆
+
+参考文章：https://www.vediotalk.com/archives/606步骤详细，且成功
+
+ 
+
+1)  修改root账号密码(不要使用过于简单密码，容易产生安全性问题)
+
+*sudo passwd root*
+
+2)  切换到root账号
+
+*su root*
+
+3)  开启root账号下的ssh服务
+
+CentOS和Debian通用，输入以下两条命令
+
+*sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config*
+
+*sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config*
+
+4)  重启ssh服务
+
+*/etc/init.d/ssh restart*
+
+5)  使用SSH客户端登陆
+
+推荐使用xshell客户端；
+
+ 
+
+备注：
+
+1)  生成公共key方法：
+
+ssh-keygen -t rsa -f ./google -C root
+
+2)  使用浏览器进行SSH操作，可使用Ctrl+C/Ctrl+V进行命令拷贝
+
+如需SSH客户端登陆操作，使用如下命令(参考文章中缺少一个空格)
+
+3)  使用ssh下载文件方法：google.pub文件下载，可使用SSH浏览器方式登陆后，在屏幕右上方有下载选项；
+
+ 
+
+### 使用google云搭建梯子
+
+使用一键安装，并直接使用shadowsocks的客户端
+
+ 
+
+输入下面命令回车
+
+bash <(curl -s -L https://git.io/v2ray.sh)
+
+shadowsocks配置信息：
+
+1)  端口 30788(r2vay不能相同)
+
+2)  密码
+
+3)  加密方式 aes-256-cfb
+
+ 
+
+参考文档：
+
+[https://github.com/233boy/v2ray/wiki/V2Ray%E6%90%AD%E5%BB%BA%E8%AF%A6%E7%BB%86%E5%9B%BE%E6%96%87%E6%95%99%E7%A8%8B](https://github.com/233boy/v2ray/wiki/V2Ray搭建详细图文教程)
+
+###  google云服务链接：
+
+https://console.cloud.google.com
