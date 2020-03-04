@@ -44,6 +44,8 @@ WordPress建立共有三种方式：
 
 每一个Docker容器内本身就是一个极其精简的Linux系统，并且多数都是基于Debian/Ubuntu的。这个Nginx的容器也是如此，我们现在进入到这个容器内要做的就是配置Nginx实现反向代理WordPress。因为它太精简，所以我们需要先安装一些常用的编辑工具：
 
+**进行WordPress的端口配置和Nginx端口配置，然后进行映射**
+
 参考文档：http://www.xuxiaobo.com/?p=5481
 
 文档中nginx配置有错误，下述部分经过验证：
@@ -73,20 +75,6 @@ server {
 ```
 /etc/init.d/nginx restart
 ```
-
-#### 配置Nignx
-
-配置nginx使用wordpress
-
-```shell
-sudo vi /etc/nginx/sites-available/wordpress
-sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
-sudo service nginx restart
-```
-
-
-
-
 
 ### GAE应用
 

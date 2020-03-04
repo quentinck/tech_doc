@@ -1,5 +1,293 @@
 # Linux常用服务安装
 
+
+
+## Linux服务安装快捷说明
+
+**具体原理见相关章节**
+
+
+
+### 安装过程
+
+由于安装过程中反复操作导致环境混乱，所以重新进行一次安装及验证，下述过程安装新建服务器后严格顺序执行；部分工具是共用的，所以未使用虚拟环境配置；
+
+ 
+
+新建服务器后的命令：
+
+1)  启动ssh服务，搭建shadowsocks服务；
+
+2)  设置系统时间
+
+查看当前时区，命令 ： date -R
+
+如果时区不正确，设置时区：命令 ： dpkg-reconfigure tzdata
+
+3)  更新系统
+
+```
+apt update && apt upgrade -y
+```
+
+新apt源,如果速度慢,可以修改apt源(/etc/apt/sources.list),依次输入:
+
+```
+apt-get update
+apt-get upgrade
+```
+
+等待进度走完之后,依次安装,保证环境正常:
+
+```
+apt-get install -y make build-essential gcc libffi-dev libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
+```
+
+4)  安装gcc
+
+```
+sudo apt-get install make gcc
+```
+
+5)  安装zlib
+
+```
+wget http://www.zlib.net/zlib-1.2.11.tar.gz
+tar xzvf zlib-1.2.11.tar.gz
+cd zlib-1.2.11
+./configure
+make
+make install
+```
+
+6)  安装python3.7.6
+
+```
+mkdir ~/tools
+cd ~/tools
+wget https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz
+tar -xzvf Python-3.7.6.tgz
+```
+
+默认安装路径为：/usr/local/python3.7.6
+
+```
+cd Python-3.7.6
+./configure -prefix=/usr/local/python3.7.6 --with-ssl
+make
+make install
+```
+
+7)  配置python3.7.6
+
+```
+vi ~/.bashrc
+```
+
+```
+#配置python
+export PYTHON37_HOME=/usr/local/python3.7.6
+export PATH=$PYTHON37_HOME/bin:$PATH
+```
+
+修改默认链接
+
+source ~/.bashrc命令使配置生效。执行echo命令，查看是否配置成功：
+
+```
+source ~/.bashrc
+echo $PYTHON37_HOME
+```
+
+修改python环境变量链接：备份->删除原有链接->建立新的链接
+
+```
+cp /usr/bin/python /usr/bin/python.bak 
+rm -f /usr/bin/python
+ln -s /usr/local/python3.7.6/bin/python3.7 /usr/bin/python
+python -V
+```
+
+
+
+```
+cp -f /usr/bin/pip3 /usr/bin/pip3.bak
+rm -f /usr/bin/pip3
+ln -s /usr/local/python3.7.6/bin/pip3 /usr/bin/pip3
+pip3 -V
+```
+
+验证一下
+
+```
+python
+import ssl, _ssl
+```
+
+8)  更新pip
+
+```
+pip3 install --upgrade pip
+pip -V
+```
+
+9)  更新pip源(似乎无效)
+
+```
+cd /root
+mkdir .pip
+vim .pip/pip.conf
+```
+
+vim打开输入:
+
+```
+[global]
+index-url=http://mirrors.aliyun.com/pypi/simple/
+ 
+[install]
+trusted-host=mirrors.aliyun.com
+```
+
+10) 安装Docker并使用portainer安装wordpress
+
+```
+curl -sSL https://get.docker.com/ | sh
+```
+
+开启docker服务并设置开机启动
+
+```
+systemctl start docker.service    
+systemctl enable docker.service
+```
+
+Portainer面板安装
+
+```
+docker volume create portainer_data
+docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+```
+
+11) Portainer管理Docker
+
+http://ip:9000/
+
+Docker配置nginx
+
+Docker配置wordpress
+
+Docker配置dokuwiki
+
+12) 手动安装nginx
+
+```
+sudo apt-get install nginx
+```
+
+13) 配置nginx使用wordpress
+
+```
+sudo vi /etc/nginx/sites-available/wordpress
+```
+
+```
+sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
+sudo service nginx restart
+```
+
+14) 安装php
+
+```
+sudo apt-get install php php-xml
+```
+
+如出现冲突，使用如下方式重新安装(使用ps看进程情况，kill掉python进程)
+
+```
+Killall -9 python
+sudo apt-get remove php php-xml
+sudo apt-get install php php-xml
+```
+
+15) 安装相关的包
+
+```
+apt install -y apt-transport-https sudo curl wget dirmngr sudo
+sudo apt install -y php7.0 php7.0-cli php7.0-fpm php7.0-gd php7.0-xml php7.0-zip
+```
+
+16) 安装dokuwiki
+
+```
+mkdir /home/www
+cd /home/www
+wget https://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz 
+tar -xzvf dokuwiki-stable.tgz
+mv dokuwiki-2018-04-22b dokuwiki
+sudo chown -R www-data:www-data /home/www/dokuwiki
+```
+
+17) 配置nginx
+
+-   nginx默认配置路径为：/etc/nginx/nginx.conf，调用/etc/nginx/sites-enabled/中的文件
+-   /etc/nginx/sites-enabled/*中的文件为/etc/nginx/sites-available文件进行链接，sites-enabled中所有文件为快捷方式
+
+```
+sudo vi /etc/nginx/sites-available/dokuwiki
+```
+
+内容详见nginx的dokuwiki的配置
+
+启用该站点配置，在sites-enabled目录下创建一个软链接：
+
+```
+sudo ln -s /etc/nginx/sites-available/dokuwiki /etc/nginx/sites-enabled/
+```
+
+启动 nginx
+
+运行命令
+
+```
+sudo service nginx restart
+```
+
+18) 安装dokuwiki
+
+访问地址进行安装：
+
+```
+http://34.80.6.92:81/install.php
+```
+
+19) 安装gunicorn&supervisor
+
+ 
+
+20) Wordpress搭建
+
+参考文档：使用Linux VPS 一键安装 LNMP
+
+```
+wget https://vps234.oss-cn-shanghai.aliyuncs.com/download/lnmp.tar.gz -cO lnmp1.5.tar.gz && tar zxf lnmp1.5.tar.gz && cd lnmp && ./install.sh lnmp
+```
+
+解压WordPress包
+
+```
+tar -zxvf wordpress-4.7.2-zh_CN.tar.gz
+```
+
+进入根目录上一级目录
+
+```
+chown -R 755 /home/www/wordpress
+chown -R www:www /home/www/wordpress
+```
+
+ 
+
 ## 安装Docker
 
 ```shell
