@@ -1,6 +1,16 @@
 # Flask Python Web部署
 
-使用 Nginx + Gunicorn + Flask 将Web应用部署到服务器
+1.  开发：可使用windows/linux下的pycharm进行开发，并生成requirements.txt文件后，在对应的环境进行部署；
+
+2.  服务部署：
+
+    1) 使用 Nginx + Gunicorn + Flask 将Web应用部署到服务器；
+
+    2) 运行的载体可是为GAE应用，或者独立的Linux服务器，或者服务器上的一个容器；
+
+3.  虚拟环境：可使用虚拟环境工具，避免版本问题；
+
+
 
 ## 原理说明
 
