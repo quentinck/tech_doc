@@ -10,7 +10,37 @@
 pip freeze>requirements.txt
 ```
 
-## Pycharm安装
+### 创建文件
+
+创建文件：app/main/__ init__.py
+
+使用 PyCharm，这里有个快捷方式，右键点击 app 文件夹，在菜单中选择 new -> Python Package，在弹出的对话框中填写包名然后确认即可，填写内容：main/__ init__.py
+
+## Pycharm配置
+
+### Pycharm用鼠标滚轮控制字体大小
+
+File —> setting —> Keymap —>在搜寻框中输入：increase —> Increase Font Size（双击） —> 在弹出的对话框中选择Add Mouse Shortcut 
+
+File —> setting —> Keymap —>在搜寻框中输入：decrease —>Decrease Font Size（双击）—> 在弹出的对话框中选择Add Mouse Shortcut
+
+### Pycharm中开启Flask的Debug
+
+问题描述：Pycharm中无法通过代码开启Flask调试：
+
+```python
+app.run(debug=True)
+```
+
+解决办法：
+
+通过pycharm的系统配置进行修改：
+
+![](https://quentin-md.oss-cn-shanghai.aliyuncs.com/img/2020/03/07/20200307154618.png)
+
+![](https://quentin-md.oss-cn-shanghai.aliyuncs.com/img/2020/03/07/20200307154655.png)
+
+### Pycharm安装
 
 1. 安装pycharm专业版，可自动生成flask的项目；
 
@@ -28,7 +58,6 @@ pip freeze>requirements.txt
 
    安装Python3.7的64位版本
 
-   
 
 ## Pycharm常见问题
 
@@ -63,4 +92,6 @@ python3 里已经没有basestring 类型，用str代替了basestring ；
 ```
 app.run(host='127.0.0.1',port=5001)
 ```
+
+
 

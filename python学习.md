@@ -60,13 +60,55 @@ person[0] = '李小龙'
 
 
 
-### 计算密集型和I/O密集型
+### [如何简单地理解Python中的if __name__ == '__main__'](https://blog.csdn.net/yjk13703623757/article/details/77918633/)
 
-计算密集型任务的特点是要进行大量的计算，消耗CPU资源，比如对视频进行编码解码或者格式转换等等，这种任务全靠CPU的运算能力，虽然也可以用多任务完成，但是任务越多，花在任务切换的时间就越多，CPU执行任务的效率就越低。计算密集型任务由于主要消耗CPU资源，这类任务用Python这样的脚本语言去执行效率通常很低，最能胜任这类任务的是C语言，我们之前提到了Python中有嵌入C/C++代码的机制。
-
-涉及到网络、存储介质I/O的任务都可以视为I/O密集型任务，这类任务的特点是CPU消耗很少，任务的大部分时间都在等待I/O操作完成（因为I/O的速度远远低于CPU和内存的速度）。对于I/O密集型任务，如果启动多任务，就可以减少I/O等待时间从而让CPU高效率的运转。有一大类的任务都属于I/O密集型任务，这其中包括了我们很快会涉及到的网络应用和Web应用。
+`if __name__ == '__main__'`的意思是：当.py文件被直接运行时，`if __name__ == '__main__'`之下的代码块将被运行；当.py文件以模块形式被导入时，`if __name__ == '__main__'`之下的代码块不被运行。
 
 
+  
+
+## 工程配置
+
+### [Python __init__.py 作用详解](https://www.cnblogs.com/tp1226/p/8453854.html)
+
+`__init__.py`该文件的作用就是相当于把自身整个文件夹当作一个包来管理，每当有外部`import`的时候，就会自动执行里面的函数。
+
+1.  标识该目录是一个python的模块包（module package）
+2.  简化模块导入操作
+
+例如：import maypackage
+
+```css
+.
+└── mypackage
+    ├── __init__.py
+    ├── subpackage_1
+    │   ├── test11.py
+    │   └── test12.py
+    ├── subpackage_2
+    │   ├── test21.py
+    │   └── test22.py
+    └── subpackage_3
+        ├── test31.py
+        └── test32.py
+```
+
+其中__init__.py内容：
+
+```jsx
+from mypackage.subpackage_1 import test11
+from mypackage.subpackage_1 import test12
+from mypackage.subpackage_2 import test21
+from mypackage.subpackage_2 import test22
+from mypackage.subpackage_3 import test31
+from mypackage.subpackage_3 import test32
+```
+
+注意事项：
+
+在我们执行import时，当前目录是不会变的（就算是执行子目录的文件），还是需要完整的包名，不能使用：
+
+from subpackage_1 import test11
 
 ## 常见资料
 
@@ -90,18 +132,16 @@ GUI应用：wxPython、PyQt、PyGTK等模块都是不错的选择
 
 
 
+## 名词解释
 
+### 语法糖
 
+语法糖(syntactic sugar)是指编程语言中可以更容易的表达一个操作的语法，它可以使程序员更加容易去使用这门语言：操作可以变得更加清晰、方便，或者更加符合程序员的编程习惯。
 
+语法盐指的是让写出坏代码更难的语法特性。这些特性强迫程序员做出一些基本不用于描述程序行为，而是用来证明他们知道自己在做什么的额外举动。
 
+### 计算密集型和I/O密集型
 
+计算密集型任务的特点是要进行大量的计算，消耗CPU资源，比如对视频进行编码解码或者格式转换等等，这种任务全靠CPU的运算能力，虽然也可以用多任务完成，但是任务越多，花在任务切换的时间就越多，CPU执行任务的效率就越低。计算密集型任务由于主要消耗CPU资源，这类任务用Python这样的脚本语言去执行效率通常很低，最能胜任这类任务的是C语言，我们之前提到了Python中有嵌入C/C++代码的机制。
 
-
-
-
-
-
-
-
-
-
+涉及到网络、存储介质I/O的任务都可以视为I/O密集型任务，这类任务的特点是CPU消耗很少，任务的大部分时间都在等待I/O操作完成（因为I/O的速度远远低于CPU和内存的速度）。对于I/O密集型任务，如果启动多任务，就可以减少I/O等待时间从而让CPU高效率的运转。有一大类的任务都属于I/O密集型任务，这其中包括了我们很快会涉及到的网络应用和Web应用。
