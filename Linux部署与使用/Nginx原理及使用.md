@@ -10,32 +10,48 @@ Nginx这里主要实现反向代理，即本地某个端口有代理服务，将
 
 
 
-## Nginx配置
+## Nginx在Docker下的配置原理及操作说明
 
-Nginx配置有两种方法：
+使用Docker添加Nginx后，默认的服务器为(端口可能不同)：http://10.0.0.14:32775/，此时可通过此地址访问Nginx服务界面
 
-### 方法一：使用工具进行配置(推测)
+对于Nginx服务的配置，分为两部分：
 
-该方法应该是使用Linux配置文件的覆盖方法，具体原理尚未查询，该方法配置后，第二种方法失效
+1.  Portainer服务所在服务器的端口映射到container对应的端口；
+
+2.  Nginx对于对应端口的监听及链接；
+
+    如下所示：
+
+    1.在portainer中配置，将服务器的81~83端口由nginx接管，映射到Nginx的容器中：
+
+    ![](https://quentin-md.oss-cn-shanghai.aliyuncs.com/img/2020/03/31/20200331113817.png)
+
+2.  在Nginx容器中进行端口监听及映射
+
+    ![image-20200331114010246](C:/Users/quent/AppData/Roaming/Typora/typora-user-images/image-20200331114010246.png)
+
+3.  路由器端口转发：
+
+    转发到nginx代理服务器的IP
+
+    ![](https://quentin-md.oss-cn-shanghai.aliyuncs.com/img/2020/03/31/20200331125701.png)
+
+**配置内网Nginx代理，实现IP+端口转移**
+
+可实现：http://10.0.0.14:83/访问转移到http://10.0.0.15:81/，即IP及端口转移
 
 ```
 apt -y update && apt -y install nano
-nano /etc/nginx/conf.d/wordpress.conf
+nano /etc/nginx/conf.d/wiki.conf
 ```
 
 ```
 server {    
-   listen    80;     
-   server_name www.xtep2020.club;
+   listen    83;     
+   server_name http://10.0.0.14:83/;
+   
    location / {     
-      proxy_pass    http://34.80.6.92:32772;     
-      proxy_redirect       off;     
-      proxy_http_version     1.1;     
-      proxy_set_header Upgrade  $http_upgrade;     
-      proxy_set_header Connection "upgrade";     
-      proxy_set_header Host   $host;     
-      proxy_set_header X-Real-IP $remote_addr;     
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;     
+      proxy_pass    http://10.0.0.15:81/;         
    }   
 }
 ```
@@ -44,7 +60,33 @@ server {
 /etc/init.d/nginx restart
 ```
 
-#### 方法二：配置Nignx文件
+**配置外网，实现域名+端口转移**
+
+可实现：http://wiki.quentinck.cn:81/访问转移到http://10.0.0.15:81/，即域名转移
+
+```
+server {    
+   listen    83;     
+   server_name http://wiki.igpsport.top:83/;
+   
+   location / {     
+      proxy_pass    http://10.0.0.15:81/;         
+   }   
+}
+```
+
+**配置外网80端口转移**
+
+修改/etc/nginx/conf.d/default.conf，去掉默认的80端口配置
+
+```
+mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.confbak
+/etc/init.d/nginx restart
+```
+
+
+
+## Nginx配置流程说明
 
 配置文件基本流程(ck推理)
 

@@ -179,9 +179,10 @@ PubkeyAuthentication yes
 
 CentOS和Debian通用，输入以下两条命令
 
-*sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config*
-
-*sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config*
+```
+sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+```
 
 4)  重启ssh服务
 
@@ -226,6 +227,8 @@ shadowsocks配置信息：
 3)  加密方式 aes-256-cfb
 
  
+
+安装完成后，可输入v2ray进行查询和管理
 
 参考文档：
 

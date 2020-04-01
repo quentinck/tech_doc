@@ -2,26 +2,26 @@
 
 | 功能                        | 命令                                                         |
 | --------------------------- | ------------------------------------------------------------ |
-| 版本查询                    | 系统版本：lsb-release-ds<br/>Python版本：python-V<br/>Pip版本：pip-V<br/>php版本：php–v<br/>nginx版本：nginx-v |
-| /home下搜索pip文件夹        | find/home-namepip                                            |
-| 软链接                      | ln-sv/usr/local/python/bin/pip/usr/bin/pip                   |
-| 查看某个目录软连接          | ls-l/usr/local/bin                                           |
-| 查看默认的配置路径          | ls-l                                                         |
-| 查看PATH路径                | echo$PATH                                                    |
-| 查看程序路径                | whichpython                                                  |
+| 版本查询                    | 系统版本：lsb-release -ds<br/>Python版本：python -V<br/>Pip版本：pip -V<br/>php版本：php –v<br/>nginx版本：nginx -v |
+| /home下搜索pip文件夹        | find /home -name pip                                         |
+| 软链接                      | ln -s /usr/local/python /bin/pip/usr/bin/pip                 |
+| 查看某个目录软连接          | ls -l/usr/local/bin                                          |
+| 查看默认的配置路径          | ls -l                                                        |
+| 查看PATH路径                | echo $PATH                                                   |
+| 查看程序路径                | which python                                                 |
 | 当前所在路径                | pwd                                                          |
-| 文件解压                    | tar-axfpip-1.5.4.tar.gz                                      |
+| 文件解压                    | tar -axf pip-1.5.4.tar.gz                                    |
 | 从shell（终端）中退出python | 方法1：快捷键：ctrl+Z方法2：exit()                           |
-| 查看python3版本             | 1.默认python版本查询python-V或python–version2.python3版本查询python3–version |
-| 删除非空文件夹              | rm-rxxx                                                      |
-| 查看硬盘使用情况            | 查看当前目录df-h查看当前目录每个文件夹的情况du--max-depth=1-h |
-| 文件重命名                  | sudomv/var/lib/dpkg/info/var/lib/dpkg/info.bak               |
+| 查看python3版本             | 1.默认python版本查询python -V或python –version<br />2.python3版本查询python3 –version |
+| 删除非空文件夹              | rm -r xxx                                                    |
+| 查看硬盘使用情况            | 查看当前目录df -h<br />查看当前目录每个文件夹的情况<br />du --max-depth=1 -h |
+| 文件重命名                  | sudo mv /var/lib/dpkg/info /var/lib/dpkg/info.bak            |
 
 ## 软件安装
 
 | 功能       | 命令                                                         |
 | ---------- | ------------------------------------------------------------ |
-| 安装/卸载  | apt-get例如：sudoapt-getinstallpython3-pip<br/>sudoapt-getinstallphpphp-xml<br/>sudoapt-getremovephpphp-xml |
+| 安装/卸载  | apt-get例如：sudo apt-get install python3-pip<br/>sudoapt-getinstallphpphp-xml<br/>sudoapt-getremovephpphp-xml |
 | Pip安装    | pipinstall<package-name>                                     |
 | 卸载       | `sudoapt-getremovelighttpdphp5-cgi``whichlighttpd`           |
 | 依赖安装   | `sudoapt-getbuild-depphpphp-xml`                             |

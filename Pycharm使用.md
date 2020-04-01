@@ -2,7 +2,18 @@
 
 ## Pycharm基本使用
 
-### Pycharm生产requirements.txt
+### 常用快捷键
+
+| 调试运行 | shift + F9       |
+| -------- | ---------------- |
+| 运行     | shift + F10      |
+| 代码     | Ctrl + k         |
+| 链接     | Ctrl + Shift + k |
+| 单步运行 | F8               |
+
+
+
+### Pycharm生成requirements.txt
 
 在Terminal在命令行中输入
 
@@ -16,6 +27,16 @@ pip freeze>requirements.txt
 
 使用 PyCharm，这里有个快捷方式，右键点击 app 文件夹，在菜单中选择 new -> Python Package，在弹出的对话框中填写包名然后确认即可，填写内容：main/__ init__.py
 
+
+
+### 函数跳转
+
+Ctrl跳转进入函数
+
+### 页面刷新
+
+Ctrl+F5刷新页面，有时候修改html后无效，可以手动刷新一次
+
 ## Pycharm配置
 
 ### Pycharm用鼠标滚轮控制字体大小
@@ -23,6 +44,40 @@ pip freeze>requirements.txt
 File —> setting —> Keymap —>在搜寻框中输入：increase —> Increase Font Size（双击） —> 在弹出的对话框中选择Add Mouse Shortcut 
 
 File —> setting —> Keymap —>在搜寻框中输入：decrease —>Decrease Font Size（双击）—> 在弹出的对话框中选择Add Mouse Shortcut
+
+### pycharm自动提示安装requirement.txt中的库
+
+项目根目录中已经添加了requirements.txt文件，怎么提示自动安装？
+
+ 
+
+解决：
+Settings/Preferences -> Tools | Python Integrated Tools.
+
+选项 Package requirements file field 中填入 requirements.txt。
+
+![](https://quentin-md.oss-cn-shanghai.aliyuncs.com/img/2020/03/09/20200309223534.png)
+
+也可以使用pip安装，在终端中输入：
+
+```
+pip install -r requirements.txt
+```
+
+生成
+
+```
+pip freeze > requirements.txt
+```
+
+### PyCharm无法Import当前文件夹下文件的问题解决
+
+使用PyCharm，Import当前文件夹下文件的时候，会提示出错，找不到文件。
+但是执行没有问题，说明文件，路径都没问题，只是PyCharm没有找到而已。
+
+解决办法：
+PyCharm上选中当前工程文件夹，右击->Mark  Directory as->Sources Root
+
 
 ### Pycharm中开启Flask的Debug
 

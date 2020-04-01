@@ -769,7 +769,13 @@ ln -s /usr/local/python3.7.6/bin/virtualenv /usr/bin/virtualenv
 
 建立web端的虚拟环境
 
-修改bash文件 `vim /etc/bash.bashrc`, 输入:
+修改bash文件 
+
+```
+vim /etc/bash.bashrc
+```
+
+输入:
 
 ```shell
 export WORKON_HOME=/home/web/web_venv/.venv
