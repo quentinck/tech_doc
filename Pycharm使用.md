@@ -39,6 +39,10 @@ Ctrl+F5刷新页面，有时候修改html后无效，可以手动刷新一次
 
 ## Pycharm配置
 
+### 查看函数说明
+
+![image-20200411163609118](https://quentin-md.oss-cn-shanghai.aliyuncs.com/img/2020/04/11/20200411163610.png)
+
 ### Pycharm用鼠标滚轮控制字体大小
 
 File —> setting —> Keymap —>在搜寻框中输入：increase —> Increase Font Size（双击） —> 在弹出的对话框中选择Add Mouse Shortcut 
@@ -112,6 +116,12 @@ app.run(debug=True)
    解决办法：
 
    安装Python3.7的64位版本
+
+### Pycharm显示rst文件
+
+reStructuredText
+
+
 
 
 ## Pycharm常见问题

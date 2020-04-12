@@ -169,11 +169,15 @@ PubkeyAuthentication yes
 
 1)  修改root账号密码(不要使用过于简单密码，容易产生安全性问题)
 
-*sudo passwd root*
+```
+sudo passwd root
+```
 
 2)  切换到root账号
 
-*su root*
+```
+su root
+```
 
 3)  开启root账号下的ssh服务
 
@@ -186,7 +190,9 @@ sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_
 
 4)  重启ssh服务
 
-*/etc/init.d/ssh restart*
+```
+/etc/init.d/ssh restart
+```
 
 5)  使用SSH客户端登陆
 

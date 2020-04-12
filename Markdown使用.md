@@ -1,5 +1,7 @@
 # Markdown使用
 
+
+
 ## Typora 快捷键集合(windows)
 
 >   markdown利器，快捷键帮助下，可以更快进行创作。
@@ -66,6 +68,21 @@ PicGo配置：
 
 
 
+
+
+## PicGo配置Typora自动上传
+
+![](https://quentin-md.oss-cn-shanghai.aliyuncs.com/img/2020/04/02/20200402213010.png)
+
+
+
+![image-20200403085508851](https://quentin-md.oss-cn-shanghai.aliyuncs.com/img/2020/04/03/20200403085510.png)
+
+主要遇到的问题：
+
+1.截图直接粘贴到typora提示找不到图片的朋友可以用管理员模式启动一下，因为要权限新建一个upload文件夹，之后就可以正常粘贴进去了
+
+2.在picgo的文件目录中出现了空格符号，解决方法是用引号"将路径括起来，比如“D:\Program Files\PicGo\PicGo.exe”就可以了，如果还不行请转到纯英文路径
 
 ### 优化注意事项
 

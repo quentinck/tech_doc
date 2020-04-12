@@ -59,3 +59,15 @@ VCS->Git->push
 使用https协议访问即可
 
 参考文档：https://blog.csdn.net/winy_lm/article/details/80452590
+
+
+
+### 本地git安装完成之后，从远程git服务器上面下载代码。报错SSL certificate problem:self signed certificate in certificate chain
+
+解决方案：打开git的控制端黑窗口，输入：
+
+git config --global http.sslVerify false
+
+点击Entry之后，就会去掉git的ssl验证。
+
+然后就可以正常的下载代码。
